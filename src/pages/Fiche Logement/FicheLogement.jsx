@@ -31,7 +31,7 @@ function FicheLogement() {
   // Gère le redimensionnement de la fenêtre et définit la taille de l'écran en conséquence
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 481) {
         setScreenSize("small");
       } else {
         setScreenSize("medium");

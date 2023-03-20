@@ -13,6 +13,7 @@ const AccordionWrapper = styled.div`
   // Si la propriété 'width' est définie, utilisez cette valeur (en pourcentage).
   // Sinon, utilisez une largeur de 100% par défaut.
   width: ${props => props.width ? `${props.width}%` : '100%'};
+ 
 `;
 
 // Créer un composant style pour l'entête de l'accordion
@@ -27,11 +28,14 @@ const AccordionHeader = styled.div`
   justify-content: space-between;
   cursor: pointer;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+  img {
+    width: 15px;
+}
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 480px) {
     height: 30px;
     img {
-      width: 15px;
+      width: 9px;
   }
 `;
 
@@ -42,11 +46,11 @@ const Title = styled.h2`
   font-family: ${STYLES.FONT_FAMILY};
   font-style: normal;
   font-weight: ${STYLES.FONT_WEIGHT_BOLD};
-  font-size: 24px;
+  font-size: 18px;
   line-height: 142.6%;
   margin:0;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 480px) {
     font-size: 13px;
   }
 `;
@@ -77,7 +81,7 @@ const AccordionContent = styled.div`
 
 // Créer un composant style pour l'image de la flèche de l'accordion
 const ArrowImage = styled.img`
-  transform: ${props => props.isOpen ? 'rotate(0deg)' : 'rotate(-180deg)'};
+  transform: ${props => props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: transform 0.2s ease-in-out;
 `;
 
@@ -112,4 +116,3 @@ function Accordion({ title, children, width }) {
 }
 
 export default Accordion;
-  

@@ -8,10 +8,11 @@ const AccordionContainer = styled.div`
   justify-content: center;
   align-items: center;
   max-width: 1023px;
-  margin: 0 auto 80px auto;
+  margin: 10px auto 80px auto;
 
   @media screen and (max-width: 480px) {
-    margin: 20px auto 40px auto;
+    margin: 10px auto 40px auto;
+    max-width: 360px
   }
 `;
 

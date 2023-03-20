@@ -31,11 +31,6 @@ const Nav = styled.nav`
 align-items: center;
 display: flex;
 justify-content: flex-end;
-
-@media screen and (max-width: 768px) {
-  text-transform: uppercase;
-}
-
 `;
 
 const StyledLink = styled(NavLink)`
@@ -51,7 +46,7 @@ const StyledLink = styled(NavLink)`
   white-space: nowrap;
 
   &:not(:last-child) {
-    margin-right: 5rem;
+    margin-right: 1rem;
   }
 
   &.active {
@@ -63,16 +58,11 @@ const StyledLink = styled(NavLink)`
     text-decoration: underline;
     text-decoration-color: #FF6060;
   }
-
-  @media screen and (max-width: 768px) {
-    &:not(:last-child) {
-      margin-right: 1rem;
-    }
   }
 
   @media screen and (max-width: 480px) {
     font-size: 12px;
-  }
+    text-transform: uppercase;
 `;
 
 const Header = () => {

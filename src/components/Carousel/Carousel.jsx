@@ -28,7 +28,6 @@ const CarouselImageContainer = styled.div`
 
   @media screen and (max-width: 768px) {
     border-radius: 10px;
-    // width: 335px;
     }
 
 `;
@@ -93,7 +92,7 @@ const CounterContainer = styled.div`
   justify-content: center;
   margin-bottom: 25px;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 480px) {
     display: none;
   }
 `;
