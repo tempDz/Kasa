@@ -16,9 +16,12 @@ const AccordionContainer = styled.div`
   }
 `;
 
+// 1. Définir la largeur de l'accordéon
 const accordionWidth = 90;
 
+// 2. Créer un tableau de données pour les accordéons
 const accordionData = [
+  // 2.1. Chaque objet contient un titre et un contenu pour un accordéon
   {
     title: "Fiabilité",
     content:
@@ -41,21 +44,21 @@ const accordionData = [
   },
 ];
 
-// Composant AccordionList pour afficher une liste d'accordéons
+// 3. Créer un composant fonctionnel AccordionList pour afficher une liste d'accordéons
 function AccordionList() {
-  // Rendu du composant AccordionList
+  // 4. Rendu du composant AccordionList
   return (
-    <AccordionContainer>
-      {accordionData.map(({ title, content }, index) => (
-        // Pour chaque élément de accordionData, on crée un composant Accordion
-        <Accordion key={index} title={title} width={accordionWidth}>
-          {/* Le contenu de l'accordéon est défini par la propriété content */}
-          <p>{content}</p>
-        </Accordion>
-      ))}
-    </AccordionContainer>
+  <AccordionContainer>
+  {// 5. Utiliser la méthode map() pour parcourir le tableau accordionData et récupérer chaque objet contenant les propriétés title et content
+  accordionData.map(({ title, content }, index) => (
+  // 6. Pour chaque élément de accordionData, créer un composant Accordion
+  <Accordion key={index} title={title} width={accordionWidth}>
+  {/* 7. Le contenu de l'accordéon est défini par la propriété content */}
+  <p>{content}</p>
+  </Accordion>
+  ))}
+  </AccordionContainer>
   );
-}
-
-
-export default AccordionList;
+  }
+  
+  export default AccordionList;

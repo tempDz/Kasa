@@ -86,37 +86,39 @@ const Title = styled.div`
 `;
 
 
-// Crée un composant "Card" optimisé avec React.memo pour éviter des rendus inutiles lors de mises à jour des propriétés.
+// 1. Crée un composant fonctionnel "Card" optimisé avec React.memo().
 const Card = React.memo(function Card({ listing, delay }) {
   
-  // Destructure l'objet "listing" pour extraire les propriétés "title", "cover" et "id".
+  // 2. Extraire les propriétés title, cover et id de l'objet listing.
   const { title, cover, id } = listing;
   
-  // Utilise le hook useNavigate() pour gérer la navigation dans l'application.
+  // 3. Utilise le hook useNavigate() pour accéder à la fonction de navigation.
   const navigate = useNavigate();
-
-  // Crée une fonction "handleCardClick" pour gérer le clic sur la carte et effectuer la navigation vers la page "fiche-logement".
+  
+  // 4. Crée une fonction handleCardClick pour gérer les clics sur la carte.
   const handleCardClick = () => {
+    // 4.1. Navigue vers la route `/fiche-logement/${id}` lorsqu'on clique sur la carte.
     navigate(`/fiche-logement/${id}`);
   };
 
-  // Rendu du composant "Card".
+  // 5. Rendu du composant "Card".
   return (
-    // Utilise le composant de style "StyledCard" et lui passe la propriété "animationDelay" pour gérer le délai d'animation.
-    // Ajoute l'écouteur d'événement "onClick" pour gérer le clic sur la carte.
+    // 5.1. Utilise le composant de style StyledCard et lui passe les propriétés "style" et "onClick".
     <StyledCard style={{ animationDelay: `${delay}ms` }} onClick={handleCardClick}>
       
-      {/* Affiche l'image de couverture en utilisant le composant de style "Cover" et lui passe les propriétés "src" et "alt". */}
+      {/* 5.2. Affiche l'image de la carte en utilisant le composant de style Cover.
+           Lui passe les propriétés "src" et "alt". */}
       <Cover src={cover} alt={title} />
       
-      {/* Inclut le composant de style "Overlay" pour ajouter un effet de superposition à la carte. */}
+      {/* 5.3. Affiche un calque de superposition en utilisant le composant de style Overlay. */}
       <Overlay />
       
-      {/* Affiche le titre de la liste en utilisant le composant de style "Title". */}
+      {/* 5.4. Affiche le titre de la carte en utilisant le composant de style Title. */}
       <Title>{title}</Title>
     </StyledCard>
   );
 });
 
-
+// 6. Exporte le composant Card par défaut.
 export default Card;
+

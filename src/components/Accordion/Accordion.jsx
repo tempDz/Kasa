@@ -79,30 +79,32 @@ const AccordionContent = styled.div`
 `;
 
 
-// Créer un composant style pour l'image de la flèche de l'accordion
+// 1. Créer un composant de style ArrowImage pour l'image de la flèche
 const ArrowImage = styled.img`
   transform: ${props => props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)'};
   transition: transform 0.2s ease-in-out;
 `;
 
-// Fonction du composant Accordion
+// 2. Créer un composant fonctionnel Accordion
 function Accordion({ title, children, width }) {
-  // Déclarer l'état pour déterminer si l'accordion est ouvert ou fermé
+  // 3. Utiliser le hook useState pour gérer l'état d'ouverture de l'accordéon
   const [isOpen, setIsOpen] = useState(false);
-  // Créer une référence pour accéder au contenu de l'accordion
+
+  // 4. Créer une référence pour le contenu de l'accordéon
   const contentRef = useRef(null);
-  // Fonction pour basculer l'état ouvert/fermé de l'accordion
+
+  // 5. Créer une fonction toggleAccordion pour basculer l'état d'ouverture de l'accordéon
   const toggleAccordion = () => {
     setIsOpen(!isOpen);
   };
-  // Utiliser useMemo pour calculer la hauteur maximale du contenu de l'accordion
+
+  // 6. Calculer la hauteur maximale du contenu de l'accordéon en utilisant useMemo
   const maxHeight = useMemo(() => {
     return contentRef.current ? contentRef.current.scrollHeight : 0;
   }, [contentRef, isOpen]);
-  // Retourner le rendu du composant Accordion
+
+  // 7. Rendu du composant Accordion
   return (
-    // Crée un conteneur pour l'accordéon en utilisant le composant de style AccordionWrapper
-    // et lui passe la propriété "width".
     <AccordionWrapper width={width}>
       <AccordionHeader isOpen={isOpen} onClick={toggleAccordion}>
         <Title>{title}</Title>
@@ -115,4 +117,5 @@ function Accordion({ title, children, width }) {
   );
 }
 
+// 8. Exporter le composant Accordion par défaut
 export default Accordion;
