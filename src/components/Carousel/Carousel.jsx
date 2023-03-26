@@ -106,8 +106,9 @@ color: ${COLORS.WHITE};
   z-index: 1;
 `;
 
-// Composant Arrow pour afficher les flèches de navigation du carrousel
+// 1. Créer un composant Arrow pour les flèches de navigation du carrousel
 const Arrow = ({ direction, onClick }) => {
+  // 1.1. Vérifier si la direction de la flèche est à gauche
   const isLeft = direction === "left";
   return (
     <div onClick={onClick} style={{ transform: isLeft ? "rotateY(180deg)" : "" }}>
@@ -122,7 +123,7 @@ const Arrow = ({ direction, onClick }) => {
   );
 };
 
-// Composant Counter pour afficher l'index de l'image courante et le nombre total d'images
+// 2. Créer un composant Counter pour afficher la position actuelle de l'image dans le carrousel
 const Counter = ({ currentIndex, total }) => (
   <CounterContainer>
     <CounterText>
@@ -131,17 +132,18 @@ const Counter = ({ currentIndex, total }) => (
   </CounterContainer>
 );
 
-// Composant Carousel optimisé avec React.memo pour éviter des rendus inutiles
+// 3. Créer un composant fonctionnel Carousel en utilisant React.memo pour optimiser les performances
 const Carousel = React.memo(function Carousel(props) {
+  // 3.1. Utiliser le hook useState pour gérer l'index de l'image actuelle et l'état d'animation
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const timeoutRef = useRef(null);
 
-  // Recherche de l'appartement correspondant à l'ID
+  // 3.2. Récupérer les informations de l'appartement et les images
   const apartment = Data.find(item => item.id === props.apartmentId);
   const images = apartment.pictures;
 
-  // Fonction pour gérer le clic sur la flèche de gauche (précédent)
+  // 3.3. Créer une fonction handleClickPrev pour passer à l'image précédente
   const handleClickPrev = () => {
     if (!isAnimating) {
       setIsAnimating(true);
@@ -151,7 +153,7 @@ const Carousel = React.memo(function Carousel(props) {
     }
   };
 
-  // Fonction pour gérer le clic sur la flèche de droite (suivant)
+  // 3.4. Créer une fonction handleClickNext pour passer à l'image suivante
   const handleClickNext = () => {
     if (!isAnimating) {
       setIsAnimating(true);
@@ -161,7 +163,7 @@ const Carousel = React.memo(function Carousel(props) {
     }
   };
 
-  // Effet pour gérer le délai d'animation et éviter des changements trop rapides
+  // 3.5. Utiliser le hook useEffect pour gérer le délai d'animation
   useEffect(() => {
     if (timeoutRef.current !== null) {
       clearTimeout(timeoutRef.current);
@@ -171,30 +173,34 @@ const Carousel = React.memo(function Carousel(props) {
     }, 500);
   }, [currentIndex]);
 
-  // Rendu du composant Carousel
-  return (
-    <CarouselContainer>
-      <CarouselImageContainer>
-        {images.map((image, index) => (
-          <CarouselImage
-            key={index}
-            src={image}
-            isActive={index === currentIndex}
-          />
-        ))}
-        {images.length > 1 && (
-          <CarouselArrowContainer>
-            <Arrow direction="left" onClick={handleClickPrev} />
-            <Arrow direction="right" onClick={handleClickNext} />
-          </CarouselArrowContainer>
-        )}
-        {images.length > 1 && (
-          <Counter currentIndex={currentIndex} total={images.length} />
-        )}
-      </CarouselImageContainer>
-    </CarouselContainer>
-  );
-});
-
-
-export default Carousel;
+    // 3.6. Rendu du composant Carousel
+    return (
+      <CarouselContainer>
+        <CarouselImageContainer>
+          {// 3.6.1. Parcourir le tableau d'images et créer un composant CarouselImage pour chaque image
+          images.map((image, index) => (
+            <CarouselImage
+              key={index}
+              src={image}
+              isActive={index === currentIndex}
+            />
+          ))}
+          {// 3.6.2. Afficher les flèches de navigation seulement si le nombre d'images est supérieur à 1
+          images.length > 1 && (
+            <CarouselArrowContainer>
+              <Arrow direction="left" onClick={handleClickPrev} />
+              <Arrow direction="right" onClick={handleClickNext} />
+            </CarouselArrowContainer>
+          )}
+          {// 3.6.3. Afficher le compteur d'images seulement si le nombre d'images est supérieur à 1
+          images.length > 1 && (
+            <Counter currentIndex={currentIndex} total={images.length} />
+          )}
+        </CarouselImageContainer>
+      </CarouselContainer>
+    );
+  });
+  
+  // 4. Exporter le composant Carousel par défaut
+  export default Carousel;
+  

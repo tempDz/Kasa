@@ -6,15 +6,17 @@ import Data from '../../Data/Data';
 import Error404 from "../../pages/Error 404/Error404";
 import { FicheLogementContainer, InfoContainer, InfoLogement, InfoTitreLogement, InfoDescriptifLogement, TagsContainer, Tag, RateLogement, NameContainer, Name, Picture, RatingContainer, Rating, AccordionContainer } from './FicheLogement.styles';
 
-// Composant FicheLogement qui affiche les détails d'un logement
+// 1. Créer le composant fonctionnel FicheLogement
 function FicheLogement() {
+  // 2. Gérer les états avec les hooks useState
   const [searchCompleted, setSearchCompleted] = useState(false);
   const [apartment, setApartment] = useState(null);
   const [screenSize, setScreenSize] = useState("medium");
 
+  // 3. Extraire l'ID de l'appartement avec useParams
   const { id } = useParams();
 
-  // Cherche et récupère les informations de l'appartement en fonction de l'ID dans l'URL
+  // 4. Rechercher l'appartement dans les données avec le premier hook useEffect
   useEffect(() => {
     window.scrollTo(0, 0);
     if (!apartment) {
@@ -28,7 +30,7 @@ function FicheLogement() {
     }
   }, [apartment, id]);
 
-  // Gère le redimensionnement de la fenêtre et définit la taille de l'écran en conséquence
+  // 5. Gérer le redimensionnement de la fenêtre avec le deuxième hook useEffect
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 481) {
@@ -43,70 +45,74 @@ function FicheLogement() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Si l'appartement n'est pas trouvé, affiche la page d'erreur 404
+  // 6. Créer la fonction renderError404 pour afficher le composant Error404
   const renderError404 = () => {
     if (!apartment && searchCompleted) {
       return <Error404 />;
     }
     return null;
   };
-  // Rendu du composant FicheLogement avec les détails de l'appartement
-return (
-  <>
-    {apartment && (
-      <>
-        <Carousel apartmentId={apartment.id} />
-        <FicheLogementContainer>
-          <InfoContainer>
-            <InfoLogement>
-              <InfoTitreLogement>
-                <div>{apartment.title}</div>
-              </InfoTitreLogement>
-              <InfoDescriptifLogement>
-                <div>{apartment.location}</div>
-              </InfoDescriptifLogement>
-              <TagsContainer>
-                {apartment.tags.map((tag, index) => (
-                  <Tag key={index}>{tag}</Tag>
-                ))}
-              </TagsContainer>
-            </InfoLogement>
-            <RateLogement>
-              <NameContainer>
-                <Name>{apartment.host.name}</Name>
-                <Picture
-                  src={apartment.host.picture}
-                  alt={apartment.host.name}
-                />
-              </NameContainer>
-              <RatingContainer>
-                <Rating rating={apartment.rating} />
-              </RatingContainer>
-            </RateLogement>
-          </InfoContainer>
-          <AccordionContainer>
-            <Accordion
-              title="Description"
-              width={screenSize === "small" ? "100" : "45"}
-            >
-              <p>{apartment.description}</p>
-            </Accordion>
-            <Accordion
-              title="Équipements"
-              width={screenSize === "small" ? "100" : "45"}
-            >
-              {apartment.equipments.map((item, index) => (
-                <p key={index}>{item}</p>
-              ))}
-            </Accordion>
-          </AccordionContainer>
-        </FicheLogementContainer>
-      </>
-    )}
-    {renderError404()}
-  </>
-);
 
+  // 7. Rendu du composant FicheLogement
+  return (
+    <>
+      {apartment && (
+        <>
+          <Carousel apartmentId={apartment.id} />
+          <FicheLogementContainer>
+            <InfoContainer>
+              <InfoLogement>
+                <InfoTitreLogement>
+                  <div>{apartment.title}</div>
+                </InfoTitreLogement>
+                <InfoDescriptifLogement>
+                  <div>{apartment.location}</div>
+                </InfoDescriptifLogement>
+                <TagsContainer>
+                  {apartment.tags.map((tag, index) => (
+                    <Tag key={index}>{tag}</Tag>
+                  ))}
+                </TagsContainer>
+              </InfoLogement>
+              <RateLogement>
+                <NameContainer>
+                  <Name>{apartment.host.name}</Name>
+                  <Picture
+                    src={apartment.host.picture}
+                    alt={apartment.host.name}
+                  />
+                </NameContainer>
+                <RatingContainer>
+                  <Rating rating={apartment.rating} />
+                </RatingContainer>
+              </RateLogement>
+            </InfoContainer>
+            <AccordionContainer>
+              <Accordion
+                title="Description"
+                width={screenSize === "small" ? "100" : "45"}
+              >
+                <p>{apartment.description}</p>
+              </Accordion>
+              <Accordion
+                title="Équipements"
+                width={screenSize === "small" ? "100" : "45"}
+              >
+                {apartment.equipments.map((item, index) => (
+                  <p key={index}>{item}</p>
+                ))}
+              </Accordion>
+            </AccordionContainer>
+          </FicheLogementContainer>
+        </>
+      )}
+            {/* Afficher le composant Error404 si nécessaire */}
+      {renderError404()}
+    </>
+  );
+
+  // 8. Exporter le composant FicheLogement par défaut
 }
 
 export default FicheLogement;
+
