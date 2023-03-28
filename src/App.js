@@ -44,6 +44,8 @@ function App() {
           <Route path="/about" element={<About />} />
           {/* Route pour la page "Fiche Logement" */}
           <Route path="/fiche-logement/:id" element={<FicheLogement />} />
+          {/* Route pour la page d'erreur 404 */}
+          <Route path="/404" element={<Error404 />} />
           {/* Route pour gérer les erreurs 404 - Page non trouvée */}
           <Route path="*" element={<Error404 />} />
         </Routes>
@@ -53,6 +55,4 @@ function App() {
     </>
   );
 }
-
-
 export default App;
